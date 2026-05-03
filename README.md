@@ -1,3 +1,13 @@
+---
+title: GST Invoice Parser
+emoji: 🧾
+colorFrom: blue
+colorTo: purple
+sdk: streamlit
+app_file: app.py
+pinned: false
+---
+
 # T13.2 — GST Invoice Parser
 
 **SMAI Assignment 3 | IIIT Hyderabad 2025–26**
