@@ -1,0 +1,49 @@
+{
+  "seller_name": "Kerala Spices Export Co",
+  "seller_address": "12 Beach Road, Kochi-682001",
+  "seller_gstin": "32AAECK7777F1Z4",
+  "buyer_name": "Masala King Retail",
+  "buyer_address": "67 Commercial St, Bangalore-560001",
+  "buyer_gstin": "29AABCM8888G1Z9",
+  "invoice_number": "KSE/EXP/2024/023",
+  "invoice_date": "28/02/2024",
+  "place_of_supply": "Karnataka (29)",
+  "items": [
+    {
+      "description": "Black Pepper 10kg",
+      "quantity": 5,
+      "rate": 4200.0,
+      "taxable_value": 21000.0
+    },
+    {
+      "description": "Cardamom 5kg",
+      "quantity": 3,
+      "rate": 8500.0,
+      "taxable_value": 25500.0
+    },
+    {
+      "description": "Turmeric Powder 20kg",
+      "quantity": 2,
+      "rate": 1800.0,
+      "taxable_value": 3600.0
+    },
+    {
+      "description": "Clove 2kg",
+      "quantity": 4,
+      "rate": 3200.0,
+      "taxable_value": 12800.0
+    },
+    {
+      "description": "Cinnamon 5kg",
+      "quantity": 2,
+      "rate": 2100.0,
+      "taxable_value": 4200.0
+    }
+  ],
+  "total_taxable_value": 67100.0,
+  "total_cgst": null,
+  "total_sgst": null,
+  "total_igst": 3355.0,
+  "total_cess": null,
+  "total_amount": 70455.0
+}

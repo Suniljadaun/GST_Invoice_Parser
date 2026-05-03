@@ -1,0 +1,34 @@
+# === Environment ===
+.env
+.venv/
+*.egg-info/
+dist/
+build/
+
+# === Python cache ===
+__pycache__/
+*.pyc
+*.pyo
+
+# === SROIE dataset (large, download separately) ===
+data/archive/
+data/archive.zip
+data/sroie_raw/
+data/sroie_test/
+
+# === LLM response cache (regenerated on run) ===
+data/llm_cache/
+
+# === Jupyter checkpoints ===
+.ipynb_checkpoints/
+data/data.ipynb
+
+# === OS files ===
+.DS_Store
+Thumbs.db
+
+# === IDE ===
+.idea/
+.vscode/
+*.swp
+*.swo

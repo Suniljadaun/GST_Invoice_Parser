@@ -1,0 +1,29 @@
+{
+  "invoice_number": "SHAH51200",
+  "seller_name": "WESTERN EASTERN STATIONERY SON.BHD",
+  "seller_address": "42-46JLN SULTAN AZLAN SHAH51200 KUALALUMPUR",
+  "seller_gstin": "0000517095424",
+  "buyer_name": null,
+  "buyer_address": null,
+  "items": [
+    {
+      "description": "3180203",
+      "quantity": null,
+      "rate": null,
+      "taxable_value": null
+    },
+    {
+      "description": "KL001",
+      "quantity": null,
+      "rate": null,
+      "taxable_value": null
+    }
+  ],
+  "total_taxable_value": 7.0,
+  "total_cgst": null,
+  "total_sgst": null,
+  "total_igst": null,
+  "total_cess": null,
+  "total_amount": 7.42,
+  "place_of_supply": null
+}

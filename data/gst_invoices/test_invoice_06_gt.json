@@ -1,0 +1,37 @@
+{
+  "seller_name": "CloudTech Software Solutions",
+  "seller_address": "WeWork, Cybercity, Gurugram-122002",
+  "seller_gstin": "06AABCC2222H1Z7",
+  "buyer_name": "SmartRetail Pvt Ltd",
+  "buyer_address": "23 Banjara Hills, Hyderabad-500034",
+  "buyer_gstin": "36AABCS1111J1Z5",
+  "invoice_number": "CTS/2024-25/INV/0157",
+  "invoice_date": "15/12/2024",
+  "place_of_supply": "Telangana (36)",
+  "items": [
+    {
+      "description": "SaaS License (Annual)",
+      "quantity": 1,
+      "rate": 120000.0,
+      "taxable_value": 120000.0
+    },
+    {
+      "description": "Implementation Fee",
+      "quantity": 1,
+      "rate": 45000.0,
+      "taxable_value": 45000.0
+    },
+    {
+      "description": "Training (5 days)",
+      "quantity": 1,
+      "rate": 25000.0,
+      "taxable_value": 25000.0
+    }
+  ],
+  "total_taxable_value": 190000.0,
+  "total_cgst": null,
+  "total_sgst": null,
+  "total_igst": 34200.0,
+  "total_cess": null,
+  "total_amount": 224200.0
+}

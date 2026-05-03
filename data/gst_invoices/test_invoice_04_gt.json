@@ -1,0 +1,43 @@
+{
+  "seller_name": "Rajesh Auto Parts",
+  "seller_address": "34 Industrial Area, Jaipur-302013",
+  "seller_gstin": "08AAECR5555D1Z6",
+  "buyer_name": "City Motors",
+  "buyer_address": "56 MG Road, Jaipur-302001",
+  "buyer_gstin": "08AABCC3333E1Z2",
+  "invoice_number": "RAP/24-25/0042",
+  "invoice_date": "11/11/2024",
+  "place_of_supply": "Rajasthan (08)",
+  "items": [
+    {
+      "description": "Brake Pad Set",
+      "quantity": 4,
+      "rate": 950.0,
+      "taxable_value": 3800.0
+    },
+    {
+      "description": "Engine Oil 5L",
+      "quantity": 6,
+      "rate": 1100.0,
+      "taxable_value": 6600.0
+    },
+    {
+      "description": "Air Filter",
+      "quantity": 8,
+      "rate": 350.0,
+      "taxable_value": 2800.0
+    },
+    {
+      "description": "Spark Plug",
+      "quantity": 12,
+      "rate": 120.0,
+      "taxable_value": 1440.0
+    }
+  ],
+  "total_taxable_value": 14640.0,
+  "total_cgst": 1317.6,
+  "total_sgst": 1317.6,
+  "total_igst": null,
+  "total_cess": null,
+  "total_amount": 17275.2
+}

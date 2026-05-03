@@ -1,0 +1,37 @@
+{
+  "seller_name": "Gujarat Textiles Pvt Ltd",
+  "seller_address": "45 Ring Road, Ahmedabad-380015",
+  "seller_gstin": "24AABCG9876H1Z8",
+  "buyer_name": "Fashion Hub India",
+  "buyer_address": "89 FC Road, Pune-411004",
+  "buyer_gstin": "27AABCF4321M1Z1",
+  "invoice_number": "GT/INV/2024/089",
+  "invoice_date": "03/09/2024",
+  "place_of_supply": "Maharashtra (27)",
+  "items": [
+    {
+      "description": "Cotton Fabric 50m",
+      "quantity": 2,
+      "rate": 3500.0,
+      "taxable_value": 7000.0
+    },
+    {
+      "description": "Silk Saree",
+      "quantity": 10,
+      "rate": 2200.0,
+      "taxable_value": 22000.0
+    },
+    {
+      "description": "Thread Bundle",
+      "quantity": 20,
+      "rate": 75.0,
+      "taxable_value": 1500.0
+    }
+  ],
+  "total_taxable_value": 30500.0,
+  "total_cgst": null,
+  "total_sgst": null,
+  "total_igst": 3660.0,
+  "total_cess": null,
+  "total_amount": 34160.0
+}

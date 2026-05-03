@@ -1,0 +1,37 @@
+{
+  "seller_name": "Sharma Electronics",
+  "seller_address": "78 Nehru Place, New Delhi-110019",
+  "seller_gstin": "07AAACS1234K1ZP",
+  "buyer_name": "Bright Solutions Ltd",
+  "buyer_address": "12 Park Street, Kolkata-700016",
+  "buyer_gstin": "19AABCB5678L1ZR",
+  "invoice_number": "SE/2024/156",
+  "invoice_date": "22/07/2024",
+  "place_of_supply": "West Bengal (19)",
+  "items": [
+    {
+      "description": "LED Monitor 24in",
+      "quantity": 3,
+      "rate": 8500.0,
+      "taxable_value": 25500.0
+    },
+    {
+      "description": "Laptop Stand",
+      "quantity": 5,
+      "rate": 1200.0,
+      "taxable_value": 6000.0
+    },
+    {
+      "description": "USB Cable 3m",
+      "quantity": 10,
+      "rate": 150.0,
+      "taxable_value": 1500.0
+    }
+  ],
+  "total_taxable_value": 33000.0,
+  "total_cgst": null,
+  "total_sgst": null,
+  "total_igst": 5940.0,
+  "total_cess": null,
+  "total_amount": 38940.0
+}

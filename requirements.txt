@@ -1,0 +1,26 @@
+# Core
+streamlit>=1.35.0
+pydantic>=2.0.0
+google-generativeai>=0.5.0
+
+# OCR
+paddlepaddle>=2.6.0
+paddleocr>=2.7.0
+Pillow>=10.0.0
+opencv-python-headless>=4.9.0
+
+# PDF handling
+pypdf>=4.0.0
+pdf2image>=1.17.0
+
+# Spatial processing
+numpy>=1.26.0
+scikit-learn>=1.4.0
+
+# Evaluation
+editdistance>=0.6.0
+pandas>=2.2.0
+matplotlib>=3.8.0
+
+# Utilities
+python-dotenv>=1.0.0
