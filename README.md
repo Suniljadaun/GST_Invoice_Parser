@@ -10,6 +10,9 @@ pinned: false
 
 # T13.2 — GST Invoice Parser
 
+[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser)  
+**Live Demo:** [https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser](https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser)
+
 **SMAI Assignment 3 | IIIT Hyderabad 2025–26**
 
 A hybrid OCR + Rules + LLM pipeline for extracting structured data from Indian GST invoices.
