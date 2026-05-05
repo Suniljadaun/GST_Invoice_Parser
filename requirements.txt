@@ -3,10 +3,9 @@ streamlit>=1.35.0
 pydantic>=2.0.0
 google-generativeai>=0.5.0
 
-# OCR — pinned to last stable CPU-compatible versions
-# PaddleOCR 2.8+ changed API completely and breaks on HuggingFace CPU
-paddlepaddle==2.6.2
-paddleocr==2.7.3
+# OCR — EasyOCR works on Python 3.13, CPU-only, no C++ build deps
+# Assignment spec lists paddleocr OR easyocr as valid choices
+easyocr>=1.7.0
 Pillow>=10.0.0
 opencv-python-headless>=4.9.0
 
