@@ -148,72 +148,14 @@ def extract_from_text_pdf(pdf_path: str) -> list[Token]:
 # Path 2: PaddleOCR extraction
 # ──────────────────────────────────────────────────────────
 def _get_ocr_engine():
-    """Lazy-load PaddleOCR — handles both old API (<=2.7) and new API (>=2.8)."""
+    """Lazy-load PaddleOCR (pinned to 2.7.x — stable CPU API)."""
     from paddleocr import PaddleOCR
-    import inspect
-
-    sig = inspect.signature(PaddleOCR.__init__).parameters
-
-    # Old API: PaddleOCR(use_angle_cls, lang, show_log)
-    # New API: PaddleOCR() — no constructor args, uses predict() not ocr()
-    if "lang" in sig:
-        kwargs = {"use_angle_cls": True, "lang": "en"}
-        if "show_log" in sig:
-            kwargs["show_log"] = False
-        return PaddleOCR(**kwargs)
-    else:
-        return PaddleOCR()
+    return PaddleOCR(use_angle_cls=True, lang="en", show_log=False)
 
 
 def _run_ocr(ocr_engine, image: np.ndarray) -> list:
-    """
-    Version-aware OCR call.
-    Old API: ocr_engine.ocr(img, cls=True)  → list of [[bbox, (text, conf)], ...]
-    New API: ocr_engine.predict(img)         → list of result objects
-    """
-    import inspect
-
-    # Try old API first
-    if hasattr(ocr_engine, "ocr"):
-        try:
-            sig = inspect.signature(ocr_engine.ocr)
-            if "cls" in sig.parameters:
-                return ocr_engine.ocr(image, cls=True)
-            else:
-                return ocr_engine.ocr(image)
-        except TypeError:
-            pass
-
-    # New API: predict() returns a list of OCRResult objects
-    results = ocr_engine.predict(image)
-    if not results:
-        return [[]]
-
-    # Convert new API result format → old format [[bbox_points, (text, conf)], ...]
-    converted = []
-    for res in results:
-        texts = getattr(res, "rec_texts", []) or []
-        scores = getattr(res, "rec_scores", []) or []
-        polys = getattr(res, "det_polys", None) or getattr(res, "boxes", []) or []
-
-        page_lines = []
-        for i, text in enumerate(texts):
-            conf = scores[i] if i < len(scores) else 1.0
-            if i < len(polys):
-                poly = polys[i]
-                if hasattr(poly, "tolist"):
-                    poly = poly.tolist()
-                if isinstance(poly[0], (list, tuple)):
-                    bbox_points = poly
-                else:
-                    x1, y1, x2, y2 = poly[0], poly[1], poly[2], poly[3]
-                    bbox_points = [[x1, y1], [x2, y1], [x2, y2], [x1, y2]]
-            else:
-                bbox_points = [[0, 0], [100, 0], [100, 20], [0, 20]]
-            page_lines.append([bbox_points, (text, conf)])
-        converted.append(page_lines)
-
-    return converted
+    """Run OCR and return results in [[bbox_points, (text, conf)], ...] format."""
+    return ocr_engine.ocr(image, cls=True)
 
 
 def extract_from_image(
