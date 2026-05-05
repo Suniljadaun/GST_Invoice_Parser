@@ -3,18 +3,18 @@ streamlit>=1.35.0
 pydantic>=2.0.0
 google-generativeai>=0.5.0
 
-# OCR — PaddleOCR (Python 3.10, works on HuggingFace with python_version: 3.10.13)
+# OCR
 paddlepaddle==2.6.2
 paddleocr==2.7.3
 Pillow>=10.0.0
-opencv-python-headless>=4.9.0
+opencv-python-headless==4.8.1.78
 
 # PDF handling
 pypdf>=4.0.0
 pdf2image>=1.17.0
 
 # Spatial processing
-numpy>=1.26.0
+numpy==1.26.4
 scikit-learn>=1.4.0
 
 # Evaluation
