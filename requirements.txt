@@ -4,17 +4,16 @@ pydantic>=2.0.0
 google-generativeai>=0.5.0
 
 # OCR — EasyOCR works on Python 3.13, CPU-only, no C++ build deps
-# Assignment spec lists paddleocr OR easyocr as valid choices
 easyocr>=1.7.0
 Pillow>=10.0.0
-opencv-python-headless>=4.9.0
+opencv-python-headless==4.8.1.78
 
 # PDF handling
 pypdf>=4.0.0
 pdf2image>=1.17.0
 
 # Spatial processing
-numpy>=1.26.0
+numpy==1.26.4
 scikit-learn>=1.4.0
 
 # Evaluation
