@@ -102,7 +102,14 @@ def call_gemini_cached(prompt: str, use_cache: bool = True) -> dict:
     for attempt in range(3):
         try:
             resp = model.generate_content(contents=prompt, generation_config=config)
-            result = json.loads(resp.text)
+            # Strip markdown fences if present, then parse
+            text = resp.text.strip()
+            if text.startswith("```"):
+                text = re.sub(r"^```[a-z]*\n?", "", text)
+                text = re.sub(r"\n?```$", "", text.strip())
+            # Remove trailing commas before } or ] (common Gemini quirk)
+            text = re.sub(r",\s*([}\]])", r"\1", text)
+            result = json.loads(text)
             with open(cache_path, "w") as f:
                 json.dump(result, f, indent=2)
             time.sleep(4.1)  # 60/15 = 4s between calls
