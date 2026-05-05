@@ -5,9 +5,10 @@ Path 1 — Text PDF (pypdf):
   If the PDF contains extractable text with real words, skip OCR entirely.
   Faster, more accurate, no bounding box noise. c_i = 1.0 for all tokens.
 
-Path 2 — Image / Scanned PDF (EasyOCR):
-  Uses CRAFT text detector + CRNN recognizer.
-  Works on Python 3.13, CPU-only, no C++ build deps.
+Path 2 — Image / Scanned PDF (PaddleOCR):
+  Uses Differentiable Binarization (DB) network.
+  B = 1 / (1 + exp(-k(P - T))), k ≈ 50
+  Adaptively computes bounding boxes for skewed receipt text.
 
 Post-OCR: Token deduplication via IoU-based Non-Maximum Suppression.
 Multi-page support: y-coordinates offset by page_num × PAGE_HEIGHT.
@@ -144,13 +145,12 @@ def extract_from_text_pdf(pdf_path: str) -> list[Token]:
 
 
 # ──────────────────────────────────────────────────────────
-# Path 2: EasyOCR extraction (replaces PaddleOCR)
-# EasyOCR supports Python 3.13, CPU-only, no C++ build deps.
+# Path 2: PaddleOCR extraction
 # ──────────────────────────────────────────────────────────
 def _get_ocr_engine():
-    """Lazy-load EasyOCR reader (CPU mode)."""
-    import easyocr
-    return easyocr.Reader(["en"], gpu=False, verbose=False)
+    """Lazy-load PaddleOCR to avoid import-time costs."""
+    from paddleocr import PaddleOCR
+    return PaddleOCR(use_angle_cls=True, lang="en", show_log=False)
 
 
 def extract_from_image(
@@ -160,11 +160,11 @@ def extract_from_image(
     apply_preprocessing: bool = True,
 ) -> list[Token]:
     """
-    Run EasyOCR on a single image (one page).
+    Run PaddleOCR on a single image (one page).
 
     Args:
         image: BGR numpy array
-        ocr_engine: easyocr.Reader instance
+        ocr_engine: PaddleOCR instance
         page_num: page number for y-offset in multi-page docs
         apply_preprocessing: whether to apply deskew + CLAHE
     """
@@ -175,25 +175,24 @@ def extract_from_image(
     else:
         processed = image
 
-    # EasyOCR returns: list of ([bbox_points], text, confidence)
-    # bbox_points = [[x1,y1],[x2,y1],[x2,y2],[x1,y2]]
-    results = ocr_engine.readtext(processed)
+    results = ocr_engine.ocr(processed, cls=True)
 
     tokens = []
-    for (bbox_points, text, confidence) in results:
-        if not text.strip():
-            continue
-        x_min = int(min(pt[0] for pt in bbox_points))
-        y_min = int(min(pt[1] for pt in bbox_points)) + page_num * PAGE_HEIGHT
-        x_max = int(max(pt[0] for pt in bbox_points))
-        y_max = int(max(pt[1] for pt in bbox_points)) + page_num * PAGE_HEIGHT
-
-        tokens.append(Token(
-            bbox=[x_min, y_min, x_max, y_max],
-            text=text.strip(),
-            confidence=float(confidence),
-            page=page_num,
-        ))
+    if results and results[0]:
+        for line in results[0]:
+            bbox_points, (text, confidence) = line
+            if not text.strip():
+                continue
+            x_min = int(min(pt[0] for pt in bbox_points))
+            y_min = int(min(pt[1] for pt in bbox_points)) + page_num * PAGE_HEIGHT
+            x_max = int(max(pt[0] for pt in bbox_points))
+            y_max = int(max(pt[1] for pt in bbox_points)) + page_num * PAGE_HEIGHT
+            tokens.append(Token(
+                bbox=[x_min, y_min, x_max, y_max],
+                text=text.strip(),
+                confidence=float(confidence),
+                page=page_num,
+            ))
 
     return tokens
 
@@ -319,4 +318,4 @@ def ingest(
     # Post-OCR deduplication
     tokens = deduplicate_tokens(tokens)
 
-    return tokens, "easyocr"
+    return tokens, "paddleocr"
