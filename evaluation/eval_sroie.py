@@ -71,7 +71,10 @@ def evaluate_sroie(
         DataFrame with per-image metrics
     """
     img_dir = os.path.join(data_dir, "img")
+    # Support both "key/" (sroie_test layout) and "entities/" (archive/SROIE2019 layout)
     key_dir = os.path.join(data_dir, "key")
+    if not os.path.exists(key_dir):
+        key_dir = os.path.join(data_dir, "entities")
 
     if not os.path.exists(img_dir):
         # Try flat structure
@@ -159,7 +162,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-dir", default="data/sroie_test")
+    parser.add_argument("--data-dir", default="data/archive/SROIE2019/test")
     parser.add_argument("--max-samples", type=int, default=50)
     args = parser.parse_args()
 

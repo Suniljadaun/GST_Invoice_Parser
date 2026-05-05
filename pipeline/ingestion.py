@@ -150,12 +150,18 @@ def extract_from_text_pdf(pdf_path: str) -> list[Token]:
 def _get_ocr_engine():
     """Lazy-load PaddleOCR to avoid import-time costs."""
     from paddleocr import PaddleOCR
+    import inspect
 
-    return PaddleOCR(
-        use_angle_cls=True,  # handles 180° rotation
-        lang="en",
-        show_log=False,
-    )
+    # PaddleOCR >= 2.8 dropped the `show_log` argument — check before passing
+    valid_params = inspect.signature(PaddleOCR.__init__).parameters
+    kwargs = {
+        "use_angle_cls": True,  # handles 180° rotation
+        "lang": "en",
+    }
+    if "show_log" in valid_params:
+        kwargs["show_log"] = False
+
+    return PaddleOCR(**kwargs)
 
 
 def extract_from_image(

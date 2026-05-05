@@ -4,6 +4,22 @@
 
 ---
 
+**Team Details**
+
+| Name | Roll Number | Email |
+|---|---|---|
+| Sunil Kumar | 2025201099 | sunil.k@students.iiit.ac.in |
+| Sukhraj Singh | 2025202003 | sukhraj.singh@students.iiit.ac.in |
+| Ameya Purohit | 2025202006 | ameya.purohit@students.iiit.ac.in |
+
+**GitHub Repository:** [https://github.com/Suniljadaun/GST_Invoice_Parser](https://github.com/Suniljadaun/GST_Invoice_Parser)
+
+**Live Demo:** [https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser](https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser)
+
+**Variant:** T13.2 — GST Invoice Parser | **Tier:** 1 | **Dataset:** SROIE (ICDAR 2019)
+
+---
+
 ## 1. Abstract
 
 We present a hybrid document processing pipeline for extracting structured data from Indian GST (Goods and Services Tax) invoices. The system combines PaddleOCR for text detection, a spatial processing layer (row grouping + column clustering) for 2D layout understanding, a deterministic rules engine with 3-level GSTIN validation, and Google Gemini LLM for semantic field extraction. The pipeline achieves 100% exact match on all numeric fields (dates, totals, taxes including IGST), 100% math consistency, and 83.3% line item detection across 6 diverse synthetic GST invoices.
@@ -257,13 +273,69 @@ The hybrid pipeline demonstrates that combining deterministic rules with LLM ext
 
 ---
 
-## 9. Acknowledgements
+## 9. App Screenshots & Working Prototype
 
-Claude (Anthropic) was used for code scaffolding and architecture design. Google Gemini was used as the LLM extraction engine within the pipeline. All evaluation metrics, analysis, design decisions, and experimental methodology are our own.
+### 9.1 Architecture Diagram
+
+![Pipeline Architecture](architecture.png)
+
+### 9.2 Per-Field Evaluation Metrics
+
+![Per-Field Metrics](per_field_metrics.png)
+
+### 9.3 Summary Statistics
+
+![Summary Statistics](summary_stats.png)
+
+### 9.4 Live Demo
+
+The app is deployed and publicly accessible at:
+
+**[https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser](https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser)**
+
+Features demonstrated in the live app:
+- Upload any GST invoice (PDF or image)
+- Two-column layout: original document + extracted results side by side
+- Debug expanders showing every pipeline layer's intermediate output
+- Confidence-colored field display (green/yellow/red)
+- Line items table extraction
+- JSON and CSV download buttons
+- Math consistency validation with live diff display
+- Sidebar toggles for ablation (enable/disable preprocessing, rules, column clustering)
+
+### 9.5 GitHub Repository
+
+**[https://github.com/Suniljadaun/GST_Invoice_Parser](https://github.com/Suniljadaun/GST_Invoice_Parser)**
+
+Repository structure:
+```
+T13.2-GST-Invoice-Parser/
+├── app.py                    # Streamlit UI
+├── pipeline/                 # 10-module extraction pipeline
+├── schemas/                  # Pydantic schemas (GSTInvoice, SROIEReceipt)
+├── evaluation/               # eval_gst.py, eval_sroie.py, ablation.py
+├── data/gst_invoices/        # 6 synthetic test invoices + ground truth
+├── data/archive/SROIE2019/   # SROIE test dataset (347 images)
+├── report/                   # This report + figures
+├── pitch/pitch_slide.png     # One-slide LinkedIn pitch
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## 10. References
+## 10. Acknowledgements
+
+In accordance with the assignment guidelines, the following LLMs were used during development:
+
+- **Claude (Anthropic):** Code scaffolding (pipeline architecture, Streamlit UI, dataset loaders), debugging, and report drafting.
+- **Google Gemini (gemini-2.5-flash):** Synthetic GST invoice generation for the test dataset, and as the LLM extraction engine within the pipeline itself.
+
+All evaluation metrics, experimental analysis, design decisions, ablation study, and methodology are our own work.
+
+---
+
+## 11. References
 
 1. PaddleOCR: [github.com/PaddlePaddle/PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 2. Google Gemini API: [ai.google.dev](https://ai.google.dev)

@@ -89,7 +89,7 @@ ABLATION_VARIANTS = [
 
 
 def run_ablation(
-    data_dir: str = "data/sroie_test",
+    data_dir: str = "data/archive/SROIE2019/test",
     max_samples: int = 50,
     output_path: str = "evaluation/ablation_results.csv",
 ) -> pd.DataFrame:
@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-dir", default="data/sroie_test")
+    parser.add_argument("--data-dir", default="data/archive/SROIE2019/test")
     parser.add_argument("--max-samples", type=int, default=50)
     args = parser.parse_args()
 

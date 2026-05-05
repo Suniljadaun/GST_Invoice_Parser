@@ -133,7 +133,3 @@ python3 evaluation/eval_gst.py
 python3 evaluation/ablation.py --data-dir data/sroie_test --max-samples 20
 ```
 
-## Acknowledgements
-
-Claude (Anthropic) was used for code scaffolding. Google Gemini is used as the LLM
-extraction engine. All evaluation, analysis, and design decisions are our own.

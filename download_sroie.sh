@@ -5,32 +5,36 @@
 # SROIE: ICDAR 2019 Robust Reading Challenge on Scanned Receipts
 # 1,000 receipt images with OCR + key-info JSON ground truth.
 # Source: https://www.kaggle.com/datasets/urbikn/sroie-datasetv2
+#
+# After download the dataset extracts to:
+#   data/archive/SROIE2019/test/img/       (347 .jpg files)
+#   data/archive/SROIE2019/test/entities/  (347 .txt JSON ground truth files)
+#
+# eval_sroie.py and ablation.py use --data-dir data/archive/SROIE2019/test
+# which maps img/ -> img/ and key/ -> entities/ automatically.
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
 echo "=== Downloading SROIE dataset from Kaggle ==="
-kaggle datasets download urbikn/sroie-datasetv2 -p data/sroie_raw --unzip
+kaggle datasets download urbikn/sroie-datasetv2 -p data/archive --unzip
 
-echo "=== Copying test images and key files ==="
-# The dataset structure varies; find the test images and keys
-find data/sroie_raw -name "*.jpg" -path "*/test/*" | head -20 | while read f; do
-    cp "$f" data/sroie_test/img/
-done
+echo "=== Verifying extracted structure ==="
+# Dataset extracts to data/archive/SROIE2019/test/{img,entities}/
+IMG_DIR="data/archive/SROIE2019/test/img"
+KEY_DIR="data/archive/SROIE2019/test/entities"
 
-find data/sroie_raw -name "*.txt" -path "*/test/*key*" -o -name "*.json" -path "*/test/*key*" | head -20 | while read f; do
-    cp "$f" data/sroie_test/key/
-done
-
-# If no test split found, just take last 20 images
-if [ "$(ls -A data/sroie_test/img/ 2>/dev/null | wc -l)" -eq 0 ]; then
-    echo "No test split found, taking last 20 images..."
-    find data/sroie_raw -name "*.jpg" | sort | tail -20 | while read f; do
-        cp "$f" data/sroie_test/img/
-    done
+if [ ! -d "$IMG_DIR" ]; then
+    echo "ERROR: Expected $IMG_DIR not found after extraction."
+    echo "Check data/archive/ for the actual structure and update paths."
+    exit 1
 fi
 
 echo "=== Done ==="
-echo "Images: $(ls data/sroie_test/img/*.jpg 2>/dev/null | wc -l)"
-echo "Keys:   $(ls data/sroie_test/key/* 2>/dev/null | wc -l)"
+echo "Images:  $(ls "$IMG_DIR"/*.jpg 2>/dev/null | wc -l)"
+echo "Keys:    $(ls "$KEY_DIR"/*.txt 2>/dev/null | wc -l)"
+echo ""
+echo "Run evaluation with:"
+echo "  python evaluation/eval_sroie.py --data-dir data/archive/SROIE2019/test"
+echo "  python evaluation/ablation.py   --data-dir data/archive/SROIE2019/test"
