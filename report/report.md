@@ -20,12 +20,6 @@
 
 ---
 
-## Executive Pitch
-
-![One-Slide Pitch](../pitch/pitch_slide.png){width=100%}
-
----
-
 **Variant:** T13.2 — GST Invoice Parser | **Tier:** 1 | **Dataset:** SROIE (ICDAR 2019)
 
 ---
@@ -280,6 +274,12 @@ The hybrid pipeline demonstrates that combining deterministic rules with LLM ext
 - Evaluate on 100+ real GST invoices from diverse vendors
 - Add table-aware OCR (e.g., PaddleOCR's table structure recognition)
 - Weighted confidence-based decision-making between rules and LLM outputs
+
+---
+
+## Executive Pitch
+
+![One-Slide Pitch](../pitch/pitch_slide.png){width=100%}
 
 ---
 
