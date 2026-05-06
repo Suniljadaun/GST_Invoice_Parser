@@ -4,12 +4,14 @@
 
 ---
 
-**Team Details**
+**Team Name:** Team_Name
+
+**Team Members:**
 
 | Name | Roll Number | Email |
 |---|---|---|
 | Sunil Kumar | 2025201099 | sunil.k@students.iiit.ac.in |
-| Sukhraj Singh | 2025202003 | sukhraj.singh@students.iiit.ac.in |
+| Sukhraj Singh | 2025202009 | sukhraj.singh@students.iiit.ac.in |
 | Ameya Purohit | 2025202006 | ameya.purohit@students.iiit.ac.in |
 
 **GitHub Repository:** [https://github.com/Suniljadaun/GST_Invoice_Parser](https://github.com/Suniljadaun/GST_Invoice_Parser)
@@ -341,3 +343,65 @@ All evaluation metrics, experimental analysis, design decisions, ablation study,
 2. Google Gemini API: [ai.google.dev](https://ai.google.dev)
 3. SROIE Dataset: ICDAR 2019 Robust Reading Challenge on Scanned Receipts OCR and Information Extraction
 4. Pydantic: [docs.pydantic.dev](https://docs.pydantic.dev)
+
+---
+
+## 12. Application Screenshots Appendix
+
+Below are detailed screenshots of the GST Invoice Parser application in action, demonstrating its various features and diagnostic panels.
+
+**1. Streamlit Application Landing Page**
+![App Landing Page](app_screenshots/01.png)
+*The main upload interface of the Streamlit application before any document is processed.*
+
+**2. Document Upload in Progress**
+![Document Upload](app_screenshots/02.png)
+*Uploading a scanned receipt triggers the automated extraction pipeline.*
+
+**3. Dual-Panel View: Document and Pipeline Status**
+![Pipeline Execution Status](app_screenshots/03.png)
+*The UI displays the original document alongside real-time pipeline progress, showing row grouping and column detection steps.*
+
+**4. End-to-End Extraction Summary**
+![Extraction Summary](app_screenshots/04.png)
+*The pipeline status checklist showing successful completion of LLM extraction and math consistency validation.*
+
+**5. Extracted Results Table with Confidence Indicators**
+![Extracted Fields](app_screenshots/05.png)
+*The parsed fields are displayed in a tabular format with traffic-light confidence scores (Green = High, Yellow = Medium, Red = Low).*
+
+**6. Validation Details and Math Check**
+![Validation Details](app_screenshots/06.png)
+*The expandable validation panel showing the deterministic math consistency check verifying that component taxes sum to the total amount.*
+
+**7. Spatial OCR Rows and Line Items Table**
+![Line Items Extraction](app_screenshots/07.png)
+*The application successfully parses the line items table and identifies spatial rows.*
+
+**8. Row Classification Types**
+![Row Types Analysis](app_screenshots/08.png)
+*Detailed view of spatial rows classified by their semantic type (e.g., PRE_TABLE, SUMMARY) before feeding into the LLM.*
+
+**9. Column Boundary Detection**
+![Column Boundaries](app_screenshots/09.png)
+*Diagnostic view showing the exact x-coordinate boundaries detected for tabular columns.*
+
+**10. Raw LLM JSON Output**
+![Raw LLM Output](app_screenshots/10.png)
+*The raw JSON structure returned by the Gemini model, containing the semantically extracted key-value pairs.*
+
+**11. Field-Level Confidence Analysis**
+![Confidence Scores Panel 1](app_screenshots/11.png)
+*Diagnostic panel showing the computed confidence score (0.0 to 1.0) for each individual extracted field.*
+
+**12. Overall Invoice Confidence**
+![Confidence Scores Panel 2](app_screenshots/12.png)
+*The final aggregated invoice confidence score (`C_invoice = 0.87`), useful for routing low-confidence documents to human review.*
+
+**13. Application Settings Menu**
+![App Settings](app_screenshots/13.png)
+*The Streamlit sidebar menu demonstrating theme customization options (Light/Dark mode).*
+
+**14. Pipeline Status Overview**
+![Pipeline Overview](app_screenshots/14.png)
+*A high-level view of the completed pipeline processing the SROIE receipt dataset.*
