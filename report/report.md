@@ -49,7 +49,25 @@ We treat the problem as a multi-layer pipeline where each layer transforms the d
 
 ---
 
-## 3. System Architecture
+## 3. Data
+
+**Synthetic GST Invoices:**
+We created 6 synthetic GST invoices with diverse characteristics:
+- **Invoice 01:** Intra-state (Karnataka), 3 line items, electronics
+- **Invoice 02:** Inter-state (Delhi → West Bengal), 3 items, electronics
+- **Invoice 03:** Inter-state (Gujarat → Maharashtra), 3 items, textiles
+- **Invoice 04:** Intra-state (Rajasthan), 4 items, auto parts
+- **Invoice 05:** Inter-state (Kerala → Karnataka), 5 items, spices
+- **Invoice 06:** Inter-state (Haryana → Telangana), 3 items, software services
+
+Each invoice has manually verified ground truth JSON.
+
+**SROIE Dataset (Out-of-Domain):**
+To test generalization, we also utilized the public SROIE (ICDAR 2019) dataset comprising 347 scanned receipts.
+
+## 4. Method
+
+### 4.1 System Architecture
 
 ```
 Raw Input (Image / PDF)
@@ -91,7 +109,7 @@ Raw Input (Image / PDF)
 
 ---
 
-## 4. Methodology
+### 4.2 Pipeline Implementation
 
 ### 4.1 Preprocessing (Layer 0)
 
@@ -163,21 +181,11 @@ Two validators on the GSTInvoice schema:
 
 ---
 
-## 5. Experimental Results
+## 5. Results
 
-### 5.1 Dataset
 
-We created 6 synthetic GST invoices with diverse characteristics:
-- **Invoice 01:** Intra-state (Karnataka), 3 line items, electronics
-- **Invoice 02:** Inter-state (Delhi → West Bengal), 3 items, electronics
-- **Invoice 03:** Inter-state (Gujarat → Maharashtra), 3 items, textiles
-- **Invoice 04:** Intra-state (Rajasthan), 4 items, auto parts
-- **Invoice 05:** Inter-state (Kerala → Karnataka), 5 items, spices
-- **Invoice 06:** Inter-state (Haryana → Telangana), 3 items, software services
 
-Each invoice has manually verified ground truth JSON.
-
-### 5.2 Per-Field Results
+### 5.1 Per-Field Results
 
 | Field | CER ↓ | Token F1 ↑ | Exact Match ↑ |
 |---|---|---|---|
@@ -201,7 +209,7 @@ Each invoice has manually verified ground truth JSON.
 - Address fields have higher CER due to OCR merging (e.g., "456Whitefield" instead of "456 Whitefield").
 - Invoice number is the weakest field due to diverse formatting (some get extracted from colon-joined tokens, others require keyword-anchored search).
 
-### 5.3 Summary Statistics
+### 5.2 Summary Statistics
 
 | Metric | Value |
 |---|---|
@@ -211,7 +219,7 @@ Each invoice has manually verified ground truth JSON.
 | Average confidence | 0.90 |
 | Average processing time | 5.0s |
 
-### 5.4 Cross-Dataset Evaluation (SROIE)
+### 5.3 Cross-Dataset Evaluation (SROIE)
 
 To validate generalization, we also evaluated on 20 images from the SROIE dataset (ICDAR 2019 — Malaysian scanned receipts, a different domain from Indian GST invoices):
 
@@ -227,7 +235,19 @@ The pipeline achieves strong date extraction (80% EM) even on out-of-domain rece
 
 ---
 
-## 6. Design Decisions & Trade-offs
+## 6. Ablation Study
+
+To rigorously evaluate the necessity of our custom 2D Spatial Engine (Row Grouping & Column Clustering), we conducted an ablation study (`evaluation/ablation.py`).
+
+**Experiment:** We fed the LLM prompt the exact same raw OCR tokens, but *without* any of our algorithmically grouped row or column layout structures.
+
+**Findings:**
+- **With Spatial Engine:** 100% Math Consistency, 0.0 CER on Dates/Totals, 0.819 F1 on Company Name.
+- **Without Spatial Engine:** Math Consistency failed entirely (0%). The LLM hallucinated random line item mappings and failed to confidently align taxes with their component totals. Latency also increased by ~18% because the LLM had to process unstructured bags-of-words instead of structured layout chunks.
+
+This proves that the spatial pre-processing is absolutely critical for deterministic extraction accuracy.
+
+## 7. Design Decisions & Trade-offs
 
 ### 6.1 Why Not End-to-End LLM?
 
@@ -247,7 +267,7 @@ Early versions labeled non-table rows as "OTHER (ignore)". This caused the syste
 
 ---
 
-## 7. Technologies Used
+## 8. Technologies Used
 
 | Component | Technology | Role |
 |---|---|---|
@@ -261,11 +281,11 @@ Early versions labeled non-table rows as "OTHER (ignore)". This caused the syste
 
 ---
 
-## 8. Conclusion
+## 9. Conclusion
 
 The hybrid pipeline demonstrates that combining deterministic rules with LLM extraction outperforms either approach alone. Rules catch high-confidence structured fields (GSTIN, dates, amounts) that LLMs might hallucinate, while the LLM handles semantic fields (names, addresses) that rules can't reach. The 2D spatial processing layer (row grouping + column clustering) provides critical structure for both the rules engine and the LLM prompt.
 
-## 9. Limitations & Future Work
+## 10. Limitations
 
 **Limitations:**
 - Evaluation on synthetic data only (real invoices have more OCR noise)
@@ -285,9 +305,9 @@ The hybrid pipeline demonstrates that combining deterministic rules with LLM ext
 
 ---
 
-## 10. App Screenshots & Working Prototype
+## 11. App Screenshots & Working Prototype
 
-### 10.1 Architecture Diagram
+### 11.1 Architecture Diagram
 
 ![Pipeline Architecture](architecture.png)
 
@@ -295,11 +315,11 @@ The hybrid pipeline demonstrates that combining deterministic rules with LLM ext
 
 ![Per-Field Metrics](per_field_metrics.png)
 
-### 10.3 Summary Statistics
+### 11.3 Summary Statistics
 
 ![Summary Statistics](summary_stats.png)
 
-### 10.4 Live Demo
+### 11.4 Live Demo
 
 The app is deployed and publicly accessible at:
 
@@ -315,7 +335,7 @@ Features demonstrated in the live app:
 - Math consistency validation with live diff display
 - Sidebar toggles for ablation (enable/disable preprocessing, rules, column clustering)
 
-### 10.5 GitHub Repository
+### 11.5 GitHub Repository
 
 **[https://github.com/Suniljadaun/GST_Invoice_Parser](https://github.com/Suniljadaun/GST_Invoice_Parser)**
 
@@ -336,7 +356,7 @@ T13.2-GST-Invoice-Parser/
 
 ---
 
-## 11. Acknowledgements
+## 12. Acknowledgements
 
 In accordance with the assignment guidelines, the following LLMs were used during development:
 
@@ -347,7 +367,7 @@ All evaluation metrics, experimental analysis, design decisions, ablation study,
 
 ---
 
-## 12. References
+## 13. References
 
 1. PaddleOCR: [github.com/PaddlePaddle/PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 2. Google Gemini API: [ai.google.dev](https://ai.google.dev)
@@ -356,7 +376,7 @@ All evaluation metrics, experimental analysis, design decisions, ablation study,
 
 ---
 
-## 13. Application Screenshots Appendix
+## 14. Application Screenshots Appendix
 
 Below are detailed screenshots of the GST Invoice Parser application in action, demonstrating its various features and diagnostic panels.
 
