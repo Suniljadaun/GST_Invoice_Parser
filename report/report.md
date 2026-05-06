@@ -18,6 +18,14 @@
 
 **Live Demo:** [https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser](https://huggingface.co/spaces/SunilJadaun/GST_Invoice_Parser)
 
+---
+
+## Executive Pitch
+
+![One-Slide Pitch](../pitch/pitch_slide.png){width=100%}
+
+---
+
 **Variant:** T13.2 — GST Invoice Parser | **Tier:** 1 | **Dataset:** SROIE (ICDAR 2019)
 
 ---
