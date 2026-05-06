@@ -265,6 +265,8 @@ Early versions labeled non-table rows as "OTHER (ignore)". This caused the syste
 
 The hybrid pipeline demonstrates that combining deterministic rules with LLM extraction outperforms either approach alone. Rules catch high-confidence structured fields (GSTIN, dates, amounts) that LLMs might hallucinate, while the LLM handles semantic fields (names, addresses) that rules can't reach. The 2D spatial processing layer (row grouping + column clustering) provides critical structure for both the rules engine and the LLM prompt.
 
+## 9. Limitations & Future Work
+
 **Limitations:**
 - Evaluation on synthetic data only (real invoices have more OCR noise)
 - Invoice number extraction still fragile across diverse formats
@@ -283,9 +285,9 @@ The hybrid pipeline demonstrates that combining deterministic rules with LLM ext
 
 ---
 
-## 9. App Screenshots & Working Prototype
+## 10. App Screenshots & Working Prototype
 
-### 9.1 Architecture Diagram
+### 10.1 Architecture Diagram
 
 ![Pipeline Architecture](architecture.png)
 
@@ -293,11 +295,11 @@ The hybrid pipeline demonstrates that combining deterministic rules with LLM ext
 
 ![Per-Field Metrics](per_field_metrics.png)
 
-### 9.3 Summary Statistics
+### 10.3 Summary Statistics
 
 ![Summary Statistics](summary_stats.png)
 
-### 9.4 Live Demo
+### 10.4 Live Demo
 
 The app is deployed and publicly accessible at:
 
@@ -313,7 +315,7 @@ Features demonstrated in the live app:
 - Math consistency validation with live diff display
 - Sidebar toggles for ablation (enable/disable preprocessing, rules, column clustering)
 
-### 9.5 GitHub Repository
+### 10.5 GitHub Repository
 
 **[https://github.com/Suniljadaun/GST_Invoice_Parser](https://github.com/Suniljadaun/GST_Invoice_Parser)**
 
@@ -334,7 +336,7 @@ T13.2-GST-Invoice-Parser/
 
 ---
 
-## 10. Acknowledgements
+## 11. Acknowledgements
 
 In accordance with the assignment guidelines, the following LLMs were used during development:
 
@@ -345,7 +347,7 @@ All evaluation metrics, experimental analysis, design decisions, ablation study,
 
 ---
 
-## 11. References
+## 12. References
 
 1. PaddleOCR: [github.com/PaddlePaddle/PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 2. Google Gemini API: [ai.google.dev](https://ai.google.dev)
@@ -354,7 +356,7 @@ All evaluation metrics, experimental analysis, design decisions, ablation study,
 
 ---
 
-## 12. Application Screenshots Appendix
+## 13. Application Screenshots Appendix
 
 Below are detailed screenshots of the GST Invoice Parser application in action, demonstrating its various features and diagnostic panels.
 
