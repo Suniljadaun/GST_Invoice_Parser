@@ -330,7 +330,7 @@ T13.2-GST-Invoice-Parser/
 
 In accordance with the assignment guidelines, the following LLMs were used during development:
 
-- **Claude (Anthropic):** Code scaffolding (pipeline architecture, Streamlit UI, dataset loaders), debugging, and report drafting.
+- **Claude (Anthropic):** Code scaffolding (pipeline architecture, Streamlit UI, dataset loaders), and debugging.
 - **Google Gemini (gemini-2.5-flash):** Synthetic GST invoice generation for the test dataset, and as the LLM extraction engine within the pipeline itself.
 
 All evaluation metrics, experimental analysis, design decisions, ablation study, and methodology are our own work.
@@ -351,57 +351,57 @@ All evaluation metrics, experimental analysis, design decisions, ablation study,
 Below are detailed screenshots of the GST Invoice Parser application in action, demonstrating its various features and diagnostic panels.
 
 **1. Streamlit Application Landing Page**
-![App Landing Page](app_screenshots/01.png)
+![App Landing Page](app_screenshots/01.png){width=100%}
 *The main upload interface of the Streamlit application before any document is processed.*
 
 **2. Document Upload in Progress**
-![Document Upload](app_screenshots/02.png)
+![Document Upload](app_screenshots/02.png){width=100%}
 *Uploading a scanned receipt triggers the automated extraction pipeline.*
 
 **3. Dual-Panel View: Document and Pipeline Status**
-![Pipeline Execution Status](app_screenshots/03.png)
+![Pipeline Execution Status](app_screenshots/03.png){width=100%}
 *The UI displays the original document alongside real-time pipeline progress, showing row grouping and column detection steps.*
 
 **4. End-to-End Extraction Summary**
-![Extraction Summary](app_screenshots/04.png)
+![Extraction Summary](app_screenshots/04.png){width=100%}
 *The pipeline status checklist showing successful completion of LLM extraction and math consistency validation.*
 
 **5. Extracted Results Table with Confidence Indicators**
-![Extracted Fields](app_screenshots/05.png)
+![Extracted Fields](app_screenshots/05.png){width=100%}
 *The parsed fields are displayed in a tabular format with traffic-light confidence scores (Green = High, Yellow = Medium, Red = Low).*
 
 **6. Validation Details and Math Check**
-![Validation Details](app_screenshots/06.png)
+![Validation Details](app_screenshots/06.png){width=100%}
 *The expandable validation panel showing the deterministic math consistency check verifying that component taxes sum to the total amount.*
 
 **7. Spatial OCR Rows and Line Items Table**
-![Line Items Extraction](app_screenshots/07.png)
+![Line Items Extraction](app_screenshots/07.png){width=100%}
 *The application successfully parses the line items table and identifies spatial rows.*
 
 **8. Row Classification Types**
-![Row Types Analysis](app_screenshots/08.png)
+![Row Types Analysis](app_screenshots/08.png){width=100%}
 *Detailed view of spatial rows classified by their semantic type (e.g., PRE_TABLE, SUMMARY) before feeding into the LLM.*
 
 **9. Column Boundary Detection**
-![Column Boundaries](app_screenshots/09.png)
+![Column Boundaries](app_screenshots/09.png){width=100%}
 *Diagnostic view showing the exact x-coordinate boundaries detected for tabular columns.*
 
 **10. Raw LLM JSON Output**
-![Raw LLM Output](app_screenshots/10.png)
+![Raw LLM Output](app_screenshots/10.png){width=100%}
 *The raw JSON structure returned by the Gemini model, containing the semantically extracted key-value pairs.*
 
 **11. Field-Level Confidence Analysis**
-![Confidence Scores Panel 1](app_screenshots/11.png)
+![Confidence Scores Panel 1](app_screenshots/11.png){width=100%}
 *Diagnostic panel showing the computed confidence score (0.0 to 1.0) for each individual extracted field.*
 
 **12. Overall Invoice Confidence**
-![Confidence Scores Panel 2](app_screenshots/12.png)
+![Confidence Scores Panel 2](app_screenshots/12.png){width=100%}
 *The final aggregated invoice confidence score (`C_invoice = 0.87`), useful for routing low-confidence documents to human review.*
 
 **13. Application Settings Menu**
-![App Settings](app_screenshots/13.png)
+![App Settings](app_screenshots/13.png){width=100%}
 *The Streamlit sidebar menu demonstrating theme customization options (Light/Dark mode).*
 
 **14. Pipeline Status Overview**
-![Pipeline Overview](app_screenshots/14.png)
+![Pipeline Overview](app_screenshots/14.png){width=100%}
 *A high-level view of the completed pipeline processing the SROIE receipt dataset.*
